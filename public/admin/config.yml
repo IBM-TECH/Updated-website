@@ -1,19 +1,9 @@
-backend:
-  name: git-gateway
-  branch: main
-repo: IBM-TECH/Updated-website
-
-media_folder: "public/uploads"
-public_folder: "/uploads"
-
-collections:
-  - name: "settings"
-    label: "Settings"
-    files:
       - file: "components.json"
         label: "Site Settings"
         name: "site_settings"
         fields:
-          - {label: "Portfolio Name", name: "name", widget: "string"}
-          - {label: "Artist Bio", name: "bio", widget: "text"}
-
+          - {label: "Logo", name: "logo", widget: "image"}
+          - {label: "SEO Keywords", name: "seoKeywords", widget: "string"}
+          - {label: "Primary Neon", name: "primaryNeon", widget: "color"}
+          - {label: "Secondary Neon", name: "secondaryNeon", widget: "color"}
+          - {label: "Accent Neon", name: "accentNeon", widget: "color"}
