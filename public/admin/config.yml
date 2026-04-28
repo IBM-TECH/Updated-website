@@ -2,7 +2,10 @@
         label: "Site Settings"
         name: "site_settings"
         fields:
+          - {label: "Hero Subtitle", name: "heroSubtitle", widget: "text"}
           - {label: "Logo", name: "logo", widget: "image"}
+          - {label: "Hero Background Image", name: "heroBackground", widget: "image"}
+          - {label: "SEO Description", name: "seoDescription", widget: "text"}
           - {label: "SEO Keywords", name: "seoKeywords", widget: "string"}
           - {label: "Primary Neon", name: "primaryNeon", widget: "color"}
           - {label: "Secondary Neon", name: "secondaryNeon", widget: "color"}
