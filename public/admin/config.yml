@@ -11,7 +11,7 @@ public_folder: "/uploads"
 media_library:
   name: git-gateway
   config:
-    multiple: true
+    multiple: true # This enables bulk uploads for everything
 
 collections:
   - name: "portfolio"
@@ -26,6 +26,37 @@ collections:
       - { label: "Gallery", name: "gallery", widget: "list", field: { label: "Image", name: "image", widget: "image" } }
       - { label: "Body", name: "body", widget: "markdown" }
 
+  - name: "about"
+    label: "About Page"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - file: "content/pages/about.md"
+        label: "About Me"
+        name: "about"
+        fields:
+          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Profile Image", name: "image", widget: "image" }
+          - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "contact"
+    label: "Contact & Social"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - file: "content/pages/contact.md"
+        label: "Contact Page"
+        name: "contact"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Social Links", name: "socials", widget: "list", fields: [
+              { label: "Platform", name: "platform", widget: "string" },
+              { label: "URL", name: "url", widget: "string" }
+            ]}
+
   - name: "settings"
     label: "Site Settings"
     delete: false
@@ -39,7 +70,7 @@ collections:
         fields:
           - { label: "Site Title", name: "siteTitle", widget: "string" }
           - { label: "Artist Name", name: "artistName", widget: "string" }
-          - { label: "Theme", name: "theme", widget: "object", fields: [
+          - { label: "Theme Colors", name: "theme", widget: "object", fields: [
               { label: "Primary Neon", name: "primary", widget: "string" },
               { label: "Secondary Neon", name: "secondary", widget: "string" }
             ]}
