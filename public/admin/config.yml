@@ -6,40 +6,6 @@ media_folder: "public/uploads"
 public_folder: "/uploads"
 
 media_library:
-  name: git-gateway
+  name: git-gateway # THIS MUST SAY git-gateway
   config:
     multiple: true
-
-collections:
-  - name: "settings"
-    label: "Site Settings"
-    delete: false
-    files:
-      - file: "content/settings/site.json"
-        label: "General Settings"
-        name: "site"
-        fields:
-          - { label: "Site Title", name: "siteTitle", widget: "string" }
-          - { label: "Hero Title", name: "heroTitle", widget: "string" }
-          - { label: "Hero Subtitle", name: "heroSubtitle", widget: "string" }
-          - { label: "Hero Background Image", name: "heroBackground", widget: "image" } # <--- This fixes your missing image
-          - { label: "Logo", name: "logo", widget: "image" }
-
-  - name: "about"
-    label: "About Page"
-    files:
-      - file: "content/pages/about.md"
-        label: "About Me"
-        name: "about"
-        fields:
-          - { label: "Main Title", name: "title", widget: "string" }
-          - { label: "Profile Image", name: "image", widget: "image" }
-          - { label: "Technical Arsenal", name: "arsenal", widget: "list", fields: [
-              { label: "Skill", name: "name", widget: "string" },
-              { label: "Level", name: "level", widget: "number" }
-            ]}
-          - { label: "Career Log", name: "log", widget: "list", fields: [
-              { label: "Year", name: "year", widget: "string" },
-              { label: "Role", name: "role", widget: "string" },
-              { label: "Company", name: "company", widget: "string" }
-            ]}
