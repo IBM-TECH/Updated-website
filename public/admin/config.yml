@@ -2,6 +2,9 @@ backend:
   name: git-gateway
   branch: main
 
+local_backend: true
+publish_mode: editorial_workflow
+
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
@@ -22,3 +25,21 @@ collections:
       - { label: "Featured Image", name: "thumbnail", widget: "image" }
       - { label: "Gallery", name: "gallery", widget: "list", field: { label: "Image", name: "image", widget: "image" } }
       - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "settings"
+    label: "Site Settings"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - file: "content/settings/site.json"
+        label: "General Settings"
+        name: "site"
+        format: "json"
+        fields:
+          - { label: "Site Title", name: "siteTitle", widget: "string" }
+          - { label: "Artist Name", name: "artistName", widget: "string" }
+          - { label: "Theme", name: "theme", widget: "object", fields: [
+              { label: "Primary Neon", name: "primary", widget: "string" },
+              { label: "Secondary Neon", name: "secondary", widget: "string" }
+            ]}
