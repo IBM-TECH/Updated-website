@@ -2,75 +2,56 @@ backend:
   name: git-gateway
   branch: main
 
-local_backend: true
-publish_mode: editorial_workflow
-
 media_folder: "public/uploads"
 public_folder: "/uploads"
 
 media_library:
   name: git-gateway
   config:
-    multiple: true # This enables bulk uploads for everything
+    multiple: true
 
 collections:
   - name: "portfolio"
     label: "Portfolio Works"
     folder: "content/portfolio"
     create: true
-    slug: "{{slug}}"
     fields:
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Publish Date", name: "date", widget: "datetime" }
-      - { label: "Featured Image", name: "thumbnail", widget: "image" }
       - { label: "Gallery", name: "gallery", widget: "list", field: { label: "Image", name: "image", widget: "image" } }
-      - { label: "Body", name: "body", widget: "markdown" }
 
   - name: "about"
     label: "About Page"
-    delete: false
-    editor:
-      preview: false
     files:
       - file: "content/pages/about.md"
         label: "About Me"
         name: "about"
         fields:
-          - { label: "Title", name: "title", widget: "string" }
+          - { label: "Main Title", name: "title", widget: "string" }
+          - { label: "Intro Text", name: "intro", widget: "text" }
           - { label: "Profile Image", name: "image", widget: "image" }
-          - { label: "Body", name: "body", widget: "markdown" }
+          # These match your 8+ Years, 100+ Projects, etc.
+          - { label: "Stats", name: "stats", widget: "list", fields: [
+              { label: "Label", name: "label", widget: "string" },
+              { label: "Value", name: "value", widget: "string" }
+            ]}
+          # This matches your Technical Arsenal bars
+          - { label: "Technical Arsenal", name: "arsenal", widget: "list", fields: [
+              { label: "Skill Name", name: "name", widget: "string" },
+              { label: "Percentage", name: "level", widget: "number" }
+            ]}
+          # This matches your Career Log timeline
+          - { label: "Career Log", name: "log", widget: "list", fields: [
+              { label: "Year", name: "year", widget: "string" },
+              { label: "Role", name: "role", widget: "string" },
+              { label: "Company", name: "company", widget: "string" },
+              { label: "Description", name: "desc", widget: "text" }
+            ]}
 
   - name: "contact"
-    label: "Contact & Social"
-    delete: false
-    editor:
-      preview: false
+    label: "Contact Page"
     files:
       - file: "content/pages/contact.md"
-        label: "Contact Page"
+        label: "Contact"
         name: "contact"
         fields:
-          - { label: "Heading", name: "heading", widget: "string" }
           - { label: "Email", name: "email", widget: "string" }
-          - { label: "Social Links", name: "socials", widget: "list", fields: [
-              { label: "Platform", name: "platform", widget: "string" },
-              { label: "URL", name: "url", widget: "string" }
-            ]}
-
-  - name: "settings"
-    label: "Site Settings"
-    delete: false
-    editor:
-      preview: false
-    files:
-      - file: "content/settings/site.json"
-        label: "General Settings"
-        name: "site"
-        format: "json"
-        fields:
-          - { label: "Site Title", name: "siteTitle", widget: "string" }
-          - { label: "Artist Name", name: "artistName", widget: "string" }
-          - { label: "Theme Colors", name: "theme", widget: "object", fields: [
-              { label: "Primary Neon", name: "primary", widget: "string" },
-              { label: "Secondary Neon", name: "secondary", widget: "string" }
-            ]}
