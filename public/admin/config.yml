@@ -1,12 +1,213 @@
-      - file: "components.json"
-        label: "Site Settings"
-        name: "site_settings"
+backend:
+  name: git-gateway
+  branch: main
+
+local_backend: true
+
+publish_mode: editorial_workflow
+
+media_folder: "public/uploads"
+public_folder: "/uploads"
+
+media_library:
+  name: default
+  config:
+    multiple: true
+
+site_url: https://mooncake-604d16.netlify.app
+display_url: https://mooncake-604d16.netlify.app
+logo_url: /uploads/logo.png
+
+collections:
+  - name: "settings"
+    label: "Site Settings"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - file: "content/settings/site.json"
+        label: "General Settings"
+        name: "site"
+        format: "json"
         fields:
-          - {label: "Hero Subtitle", name: "heroSubtitle", widget: "text"}
-          - {label: "Logo", name: "logo", widget: "image"}
-          - {label: "Hero Background Image", name: "heroBackground", widget: "image"}
-          - {label: "SEO Description", name: "seoDescription", widget: "text"}
-          - {label: "SEO Keywords", name: "seoKeywords", widget: "string"}
-          - {label: "Primary Neon", name: "primaryNeon", widget: "color"}
-          - {label: "Secondary Neon", name: "secondaryNeon", widget: "color"}
-          - {label: "Accent Neon", name: "accentNeon", widget: "color"}
+          - { label: "Site Title", name: "siteTitle", widget: "string" }
+          - { label: "Artist Name", name: "artistName", widget: "string" }
+          - { label: "Tagline", name: "tagline", widget: "string" }
+          - { label: "Hero Subtitle", name: "heroSubtitle", widget: "text" }
+          - { label: "Logo", name: "logo", widget: "image", required: false }
+          - { label: "Favicon", name: "favicon", widget: "image", required: false }
+          - { label: "Hero Background Image", name: "heroBackground", widget: "image", required: false }
+          - { label: "Hero Background Video (mp4)", name: "heroVideo", widget: "file", required: false }
+          - { label: "SEO Description", name: "seoDescription", widget: "text" }
+          - { label: "SEO Keywords", name: "seoKeywords", widget: "string", required: false }
+          - { label: "OG Image", name: "ogImage", widget: "image", required: false }
+          - label: "Theme"
+            name: "theme"
+            widget: "object"
+            fields:
+              - { label: "Primary Neon (hex)", name: "primary", widget: "string", default: "#00f0ff" }
+              - { label: "Secondary Neon (hex)", name: "secondary", widget: "string", default: "#ff00e5" }
+              - { label: "Accent Neon (hex)", name: "accent", widget: "string", default: "#a855f7" }
+
+  - name: "contact"
+    label: "Contact & Social"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - file: "content/pages/contact.md"
+        label: "Contact Page"
+        name: "contact"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Subheading", name: "subheading", widget: "text" }
+          - { label: "Email", name: "email", widget: "string" }
+          - { label: "Phone", name: "phone", widget: "string", required: false }
+          - { label: "Location", name: "location", widget: "string", required: false }
+          - { label: "Available For Work", name: "available", widget: "boolean", default: true }
+          - { label: "Booking Form URL", name: "bookingUrl", widget: "string", required: false }
+          - label: "Social Links"
+            name: "socials"
+            widget: "list"
+            fields:
+              - { label: "Platform", name: "platform", widget: "select", options: ["email", "discord", "telegram", "fiverr", "instagram", "twitter", "x", "behance", "dribbble", "artstation", "youtube", "vimeo", "tiktok", "linkedin", "github", "twitch", "deviantart", "pinterest", "website"] }
+              - { label: "Label", name: "label", widget: "string" }
+              - { label: "URL", name: "url", widget: "string" }
+              - { label: "Handle (optional)", name: "handle", widget: "string", required: false }
+          - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "about"
+    label: "About Page"
+    delete: false
+    editor:
+      preview: false
+    files:
+      - file: "content/pages/about.md"
+        label: "About Page"
+        name: "about"
+        fields:
+          - { label: "Heading", name: "heading", widget: "string" }
+          - { label: "Subheading", name: "subheading", widget: "text" }
+          - { label: "Portrait Image", name: "portrait", widget: "image", required: false }
+          - { label: "Years Experience", name: "yearsExperience", widget: "number", required: false, default: 5 }
+          - { label: "Projects Completed", name: "projectsCompleted", widget: "number", required: false, default: 100 }
+          - { label: "Happy Clients", name: "happyClients", widget: "number", required: false, default: 50 }
+          - { label: "Awards", name: "awards", widget: "number", required: false, default: 10 }
+          - label: "Skills"
+            name: "skills"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Name", name: "name", widget: "string" }
+              - { label: "Category", name: "category", widget: "string", required: false }
+              - { label: "Level (0-100)", name: "level", widget: "number", min: 0, max: 100, default: 80 }
+              - { label: "Icon", name: "icon", widget: "string", hint: "lucide-react icon name (e.g., Brush, Cpu, Cube, Palette)", required: false }
+          - label: "Career Timeline"
+            name: "timeline"
+            widget: "list"
+            required: false
+            fields:
+              - { label: "Year", name: "year", widget: "string" }
+              - { label: "Title", name: "title", widget: "string" }
+
+  - name: "categories"
+    label: "Portfolio Categories"
+    label_singular: "Category"
+    folder: "content/categories"
+    create: true
+    delete: true
+    slug: "{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - { label: "Category Name", name: "title", widget: "string" }
+      - { label: "Slug (URL key)", name: "slug", widget: "string", hint: "Lowercase, no spaces e.g. character-art" }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Cover Image", name: "coverImage", widget: "image", required: false }
+      - { label: "Display Order", name: "order", widget: "number", default: 1 }
+      - { label: "Visible", name: "visible", widget: "boolean", default: true }
+      - label: "Gallery Images"
+        name: "gallery"
+        widget: "list"
+        label_singular: "Image"
+        hint: "Add all your artwork images for this category here"
+        fields:
+          - { label: "Type", name: "type", widget: "select", options: ["image", "video", "youtube", "vimeo"], default: "image" }
+          - { label: "Image / Video File", name: "src", widget: "image", required: false }
+          - { label: "External URL (YouTube/Vimeo)", name: "url", widget: "string", required: false }
+          - { label: "Caption", name: "alt", widget: "string", required: false }
+
+  - name: "portfolio_works"
+    label: "Portfolio Works"
+    label_singular: "Work"
+    folder: "content/portfolio"
+    create: true
+    delete: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - label: "Category"
+        name: "category"
+        widget: "relation"
+        collection: "categories"
+        search_fields: ["title"]
+        value_field: "slug"
+        display_fields: ["title"]
+        hint: "Pick which category this work belongs to"
+      - { label: "Cover / Thumbnail Image", name: "coverImage", widget: "image" }
+      - label: "Image Gallery"
+        name: "gallery"
+        widget: "list"
+        label_singular: "Image"
+        fields:
+          - { label: "Image", name: "image", widget: "image" }
+          - { label: "Caption (optional)", name: "caption", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { label: "Visible", name: "visible", widget: "boolean", default: true }
+      - { label: "Display Order", name: "order", widget: "number", default: 1 }
+
+  - name: "case_studies"
+    label: "Featured Case Studies (optional)"
+    folder: "content/portfolio"
+    create: true
+    delete: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    identifier_field: title
+    summary: "{{title}} - {{category}}"
+    sortable_fields: ["date", "order", "title"]
+    editor:
+      preview: false
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Slug (auto)", name: "slug", widget: "string", required: false }
+      - { label: "Date", name: "date", widget: "datetime", default: "" }
+      - label: "Category"
+        name: "category"
+        widget: "relation"
+        collection: "categories"
+        search_fields: ["title", "slug"]
+        value_field: "slug"
+      - { label: "Medium", name: "medium", widget: "select", options: ["2d", "3d", "video", "mixed"], default: "2d" }
+      - { label: "Featured", name: "featured", widget: "boolean", default: false }
+      - { label: "Visible", name: "visible", widget: "boolean", default: true }
+      - { label: "Display Order", name: "order", widget: "number", default: 0 }
+      - { label: "Cover Image", name: "cover", widget: "image" }
+      - label: "Gallery"
+        name: "gallery"
+        widget: "list"
+        required: false
+        fields:
+          - { label: "Type", name: "type", widget: "select", options: ["image", "video", "youtube", "vimeo"], default: "image" }
+          - { label: "Image / Video File", name: "src", widget: "file", required: false }
+          - { label: "External URL", name: "url", widget: "string", required: false }
+          - { label: "Alt / Caption", name: "alt", widget: "string", required: false }
+      - { label: "Tools Used", name: "tools", widget: "list", required: false, default: [] }
+      - { label: "Tags", name: "tags", widget: "list", required: false, default: [] }
+      - { label: "Client", name: "client", widget: "string", required: false }
+      - { label: "Year", name: "year", widget: "string", required: false }
+      - { label: "External Link", name: "externalLink", widget: "string", required: false }
+      - { label: "Short Description", name: "excerpt", widget: "text", required: false }
+      - { label: "Body / Case Study", name: "body", widget: "markdown" }
