@@ -11,13 +11,19 @@ media_library:
     multiple: true
 
 collections:
-  - name: "portfolio"
-    label: "Portfolio Works"
-    folder: "content/portfolio"
-    create: true
-    fields:
-      - { label: "Title", name: "title", widget: "string" }
-      - { label: "Gallery", name: "gallery", widget: "list", field: { label: "Image", name: "image", widget: "image" } }
+  - name: "settings"
+    label: "Site Settings"
+    delete: false
+    files:
+      - file: "content/settings/site.json"
+        label: "General Settings"
+        name: "site"
+        fields:
+          - { label: "Site Title", name: "siteTitle", widget: "string" }
+          - { label: "Hero Title", name: "heroTitle", widget: "string" }
+          - { label: "Hero Subtitle", name: "heroSubtitle", widget: "string" }
+          - { label: "Hero Background Image", name: "heroBackground", widget: "image" } # <--- This fixes your missing image
+          - { label: "Logo", name: "logo", widget: "image" }
 
   - name: "about"
     label: "About Page"
@@ -27,31 +33,13 @@ collections:
         name: "about"
         fields:
           - { label: "Main Title", name: "title", widget: "string" }
-          - { label: "Intro Text", name: "intro", widget: "text" }
           - { label: "Profile Image", name: "image", widget: "image" }
-          # These match your 8+ Years, 100+ Projects, etc.
-          - { label: "Stats", name: "stats", widget: "list", fields: [
-              { label: "Label", name: "label", widget: "string" },
-              { label: "Value", name: "value", widget: "string" }
-            ]}
-          # This matches your Technical Arsenal bars
           - { label: "Technical Arsenal", name: "arsenal", widget: "list", fields: [
-              { label: "Skill Name", name: "name", widget: "string" },
-              { label: "Percentage", name: "level", widget: "number" }
+              { label: "Skill", name: "name", widget: "string" },
+              { label: "Level", name: "level", widget: "number" }
             ]}
-          # This matches your Career Log timeline
           - { label: "Career Log", name: "log", widget: "list", fields: [
               { label: "Year", name: "year", widget: "string" },
               { label: "Role", name: "role", widget: "string" },
-              { label: "Company", name: "company", widget: "string" },
-              { label: "Description", name: "desc", widget: "text" }
+              { label: "Company", name: "company", widget: "string" }
             ]}
-
-  - name: "contact"
-    label: "Contact Page"
-    files:
-      - file: "content/pages/contact.md"
-        label: "Contact"
-        name: "contact"
-        fields:
-          - { label: "Email", name: "email", widget: "string" }
